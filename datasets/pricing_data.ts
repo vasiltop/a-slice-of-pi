@@ -1,0 +1,27 @@
+export const pricingData = {
+	Cheese: {
+		S: 8,
+		M: 12,
+		L: 16,
+	},
+	Pepperoni: {
+		S: 10,
+		M: 14,
+		L: 18,
+	},
+	Deluxe: {
+		S: 12,
+		M: 16,
+		L: 20,
+	},
+	Hawaiian: {
+		S: 10,
+		M: 14,
+		L: 18,
+	},
+	Meatlovers: {
+		S: 12,
+		M: 16,
+		L: 20,
+	},
+} as const;
