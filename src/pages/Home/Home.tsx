@@ -5,6 +5,8 @@ import { orderData } from '../../../datasets/order_data.ts';
 import { pricingData } from '../../../datasets/pricing_data.ts';
 import Checkbox from '../../components/Checkbox.tsx';
 import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const MONTHS = [
 	'January',
@@ -73,15 +75,33 @@ export default function Home() {
 		});
 	}
 
+	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState<Date>(new Date());
+	const onChange = (dates: [Date, Date]) => {
+		const [start, end] = dates;
+		setStartDate(start);
+		setEndDate(end);
+	};
+
 	return (
 		<>
+			<h2> Date </h2>
+			<DatePicker
+				selected={startDate}
+				onChange={onChange}
+				startDate={startDate}
+				endDate={endDate}
+				selectsRange
+				inline
+			/>
+
 			<Pie
 				data={{
 					labels: getSentiments(reviewData),
 					datasets: [
 						{
 							label: 'Popularity of colours',
-							data: getReviewData(reviewData),
+							data: getReviewData(reviewData, startDate, endDate),
 							// you can set indiviual colors for each bar
 							backgroundColor: [
 								'rgba(200, 200, 200, 1)',
@@ -94,7 +114,6 @@ export default function Home() {
 					],
 				}}
 			></Pie>
-
 			<Bar
 				data={{
 					labels: getStores(orderData),
@@ -102,7 +121,13 @@ export default function Home() {
 					datasets: [
 						{
 							label: 'Popularity of stores',
-							data: getStoreData(orderData, pizzaTypesFilter, pizzaSizesFilter),
+							data: getStoreData(
+								orderData,
+								pizzaTypesFilter,
+								pizzaSizesFilter,
+								startDate,
+								endDate
+							),
 							// you can set indiviual colors for each bar
 							backgroundColor: [
 								'rgba(200, 200, 200, 1)',
@@ -115,11 +140,8 @@ export default function Home() {
 					],
 				}}
 			></Bar>
-
 			<h2> Include: </h2>
-
 			<h3> Pizza Types </h3>
-
 			{PIZZA_TYPES.map((type) => (
 				<Checkbox
 					label={type}
@@ -129,9 +151,7 @@ export default function Home() {
 					}}
 				></Checkbox>
 			))}
-
 			<h3> Pizza Sizes </h3>
-
 			{PIZZA_SIZES.map((size) => (
 				<Checkbox
 					label={size}
@@ -141,10 +161,8 @@ export default function Home() {
 					}}
 				></Checkbox>
 			))}
-
 			<h2> Total Sales</h2>
 			<p>${totalSales}</p>
-
 			<Line
 				data={{
 					labels: MONTHS,
@@ -152,7 +170,7 @@ export default function Home() {
 					datasets: [
 						{
 							label: 'Popularity of stores',
-							data: getMonthlySales(orderData),
+							data: getMonthlySales(orderData, startDate, endDate),
 							// you can set indiviual colors for each bar
 							backgroundColor: [
 								'rgba(200, 200, 200, 1)',
@@ -189,7 +207,19 @@ type Review = {
 	message: string;
 };
 
-function getMonthlySales(data: Order[]): number[] {
+function filterByDate(
+	data: Order[] | Review[],
+	startDate: Date,
+	endDate: Date
+): (Order | Review)[] {
+	return data.filter((item) => {
+		const date = new Date(item.date);
+		return date >= startDate && date <= endDate;
+	});
+}
+
+function getMonthlySales(d: Order[], startDate: Date, endDate: Date): number[] {
+	const data = filterByDate(d, startDate, endDate) as typeof d;
 	const monthlySales = new Map<string, number>();
 
 	MONTHS.forEach((month) => {
@@ -230,7 +260,9 @@ function getSentiments(data: Review[]): string[] {
 	return Array.from(keys);
 }
 
-function getReviewData(data: Review[]): number[] {
+function getReviewData(d: Review[], startDate: Date, endDate: Date): number[] {
+	const data = filterByDate(d, startDate, endDate) as typeof d;
+
 	let keys = getSentiments(data);
 	let labelMap = new Map<string, number>();
 
@@ -247,10 +279,13 @@ function getReviewData(data: Review[]): number[] {
 }
 
 function getStoreData(
-	data: Order[],
+	d: Order[],
 	pizzaTypesFilter: PizzaType,
-	pizzaSizesFilter: PizzaSize
+	pizzaSizesFilter: PizzaSize,
+	startDate: Date,
+	endDate: Date
 ): number[] {
+	const data = filterByDate(d, startDate, endDate) as typeof d;
 	const stores = getStores(data);
 	const labelMap = new Map<string, number>();
 
