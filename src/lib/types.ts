@@ -27,6 +27,7 @@ export const COLORS = [
 	'#ff572280',
 	'#ffab3680',
 ];
+
 export const STORE_COLORS = [
 	'rgba(255, 99, 132, 0.5)',
 	'rgba(54, 162, 235, 0.5)',
@@ -34,6 +35,7 @@ export const STORE_COLORS = [
 	'rgba(75, 192, 192, 0.5)',
 	'rgba(153, 102, 255, 0.5)',
 ];
+
 export const MONTHS = [
 	'January',
 	'February',
@@ -56,6 +58,7 @@ export const PIZZA_TYPES = [
 	'Hawaiian',
 	'Meatlovers',
 ] as const;
+
 export type PizzaType = Record<(typeof PIZZA_TYPES)[number], boolean>;
 
 export const PIZZA_SIZES = ['S', 'M', 'L'] as const;
