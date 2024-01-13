@@ -34,7 +34,12 @@ export default function RecentReviews() {
 								{review.sentiment}
 							</div>
 
-							<p className="text-gray-500"> {review.message} </p>
+							<p className="text-gray-700 flex-1"> {review.message} </p>
+
+							<p className=" text-sm text-gray-500">
+								{' '}
+								{new Date(review.date).toDateString()}
+							</p>
 						</div>
 					);
 				})}
