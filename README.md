@@ -8,6 +8,7 @@ A Slice of Pi is a web application created for the OutStem Coding Challenge, whe
 - [Tailwind CSS](https://tailwindcss.com/) for styling.
 - [daisyUI](https://daisyui.com/) for styled components.
 - [Chart.js](https://www.chartjs.org/) for charts.
+- [Cloudflare Pages](https://pages.cloudflare.com/) for deployment.
 
 ## Installation
 
