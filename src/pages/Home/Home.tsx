@@ -6,7 +6,6 @@ import Checkbox from '../../components/Checkbox.tsx';
 import { useState } from 'react';
 import Navbar from '../../components/Navbar.tsx';
 import CountUp from 'react-countup';
-import ConfettiExplosion from 'react-confetti-explosion';
 import RecentReviews from '../../components/RecentReviews.tsx';
 import DateDropdown from '../../components/DateDropdown.tsx';
 
@@ -105,14 +104,6 @@ export default function Home() {
 										<CountUp end={totalSales} />
 									</span>
 								</p>
-								<div className="flex w-full h-full place-items-center absolute">
-									<ConfettiExplosion
-										force={0.4}
-										duration={2200}
-										particleCount={20}
-										width={400}
-									/>
-								</div>
 							</div>
 						</div>
 
