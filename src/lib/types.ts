@@ -21,9 +21,10 @@ export type Order = {
 };
 
 export const COLORS = [
-	'#ffcc0080',
 	'#4caf5080',
 	'#2196f380',
+
+	'#ffcc0080',
 	'#ff572280',
 	'#ffab3680',
 ];

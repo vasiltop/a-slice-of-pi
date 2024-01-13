@@ -44,7 +44,7 @@ export default function RecentReviews() {
 }
 
 const emotionToColor = {
-	delighted: 'bg-green-300/50',
+	delighted: 'bg-yellow-300/65',
 	happy: 'bg-green-500/50',
 	sad: 'bg-blue-400/50',
 	angry: 'bg-red-400/50',
