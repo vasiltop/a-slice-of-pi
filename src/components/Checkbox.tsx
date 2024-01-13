@@ -11,14 +11,12 @@ export default function Checkbox({ label, value, onChange }: CheckboxProps) {
 
 	useEffect(() => {
 		setChecked(value);
-		console.log(value);
 	}, [value]);
 
 	return (
 		<label className="flex items-center gap-2 text-black">
 			<input
 				type="button"
-				checked={checked}
 				onClick={onChange}
 				className={`btn ${checked ? 'bg-primary' : 'bg-base-100'} btn-ghost`}
 				value={label}

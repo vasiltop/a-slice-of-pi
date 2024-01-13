@@ -1,4 +1,6 @@
-export const reviewData = [
+import type { Review } from '../src/lib/types';
+
+export const reviewData: Review[] = [
 	{
 		review_id: 1,
 		sentiment: 'delighted',

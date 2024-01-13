@@ -2,7 +2,7 @@ import { pricingData } from '../../datasets/pricing_data';
 
 export type Review = {
 	review_id: number;
-	sentiment: string;
+	sentiment: Sentiment;
 	store: string;
 	date: string;
 	message: string;
@@ -12,6 +12,8 @@ export type Item = {
 	type: keyof typeof pricingData;
 	size: keyof (typeof pricingData)[keyof typeof pricingData];
 };
+
+type Sentiment = (typeof EMOTIONS)[number];
 
 export type Order = {
 	order_id: number;
@@ -60,6 +62,7 @@ export const PIZZA_TYPES = [
 	'Meatlovers',
 ] as const;
 
+export const EMOTIONS = ['happy', 'angry', 'sad', 'delighted'] as const;
 export type PizzaType = Record<(typeof PIZZA_TYPES)[number], boolean>;
 
 export const PIZZA_SIZES = ['S', 'M', 'L'] as const;

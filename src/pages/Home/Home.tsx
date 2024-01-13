@@ -228,6 +228,7 @@ export default function Home() {
 								<div className="flex justify-center m-4 gap-2 flex-wrap">
 									{PIZZA_TYPES.map((type) => (
 										<Checkbox
+											key={type}
 											label={type}
 											value={pizzaTypesFilter[type]}
 											onChange={() => {
@@ -238,6 +239,7 @@ export default function Home() {
 
 									{PIZZA_SIZES.map((size) => (
 										<Checkbox
+											key={size}
 											label={size}
 											value={pizzaSizesFilter[size]}
 											onChange={() => {
