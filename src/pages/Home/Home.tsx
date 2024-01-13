@@ -1,5 +1,5 @@
 import { Chart, ArcElement } from 'chart.js/auto';
-import { Pie, Bar, Line } from 'react-chartjs-2';
+import { Pie, Bar, Line, PolarArea } from 'react-chartjs-2';
 import { reviewData } from '../../../datasets/review_data.ts';
 import { orderData } from '../../../datasets/order_data.ts';
 import { pricingData } from '../../../datasets/pricing_data.ts';
@@ -12,8 +12,20 @@ import CountUp from 'react-countup';
 import ConfettiExplosion from 'react-confetti-explosion';
 
 //make the last one orange ORANGE
-export const COLORS = ['#ffcc00', '#4caf50', '#2196f3', '#ff5722', '#ffab36'];
-
+export const COLORS = [
+	'#ffcc0080',
+	'#4caf5080',
+	'#2196f380',
+	'#ff572280',
+	'#ffab3680',
+];
+export const STORE_COLORS = [
+	'rgba(255, 99, 132, 0.5)',
+	'rgba(54, 162, 235, 0.5)',
+	'rgba(255, 206, 86, 0.5)',
+	'rgba(75, 192, 192, 0.5)',
+	'rgba(153, 102, 255, 0.5)',
+];
 export const MONTHS = [
 	'January',
 	'February',
@@ -40,6 +52,8 @@ type PizzaType = Record<(typeof PIZZA_TYPES)[number], boolean>;
 
 export const PIZZA_SIZES = ['S', 'M', 'L'] as const;
 type PizzaSize = Record<(typeof PIZZA_SIZES)[number], boolean>;
+
+const recentReviews = getRecentReviews(reviewData);
 
 export default function Home() {
 	Chart.register(ArcElement);
@@ -117,6 +131,14 @@ export default function Home() {
 								<details className="dropdown ">
 									<summary className=" m-1 btn  rounded-lg h-8 min-h-0 bg-white btn-ghost">
 										{getStartDate() + getEndDate()}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+										>
+											<path d="M20 20h-4v-4h4v4zm-6-10h-4v4h4v-4zm6 0h-4v4h4v-4zm-12 6h-4v4h4v-4zm6 0h-4v4h4v-4zm-6-6h-4v4h4v-4zm16-8v22h-24v-22h3v1c0 1.103.897 2 2 2s2-.897 2-2v-1h10v1c0 1.103.897 2 2 2s2-.897 2-2v-1h3zm-2 6h-20v14h20v-14zm-2-7c0-.552-.447-1-1-1s-1 .448-1 1v2c0 .552.447 1 1 1s1-.448 1-1v-2zm-14 2c0 .552-.447 1-1 1s-1-.448-1-1v-2c0-.552.447-1 1-1s1 .448 1 1v2z" />
+										</svg>
 									</summary>
 									<ul className="dropdown-content menu">
 										<DatePicker
@@ -133,8 +155,11 @@ export default function Home() {
 
 							<div className="bg-neutral h-16 p-4 rounded-lg flex flow-row relative place-items-center">
 								<p className=" text-gray-700 text-xl  self-baseline translate-y-[.125rem]">
-									Total sales: $
-									<CountUp end={totalSales} />
+									Total sales:{' '}
+									<span className=" text-green-400">
+										$
+										<CountUp end={totalSales} />
+									</span>
 								</p>
 								<div className="flex w-full h-full place-items-center absolute">
 									<ConfettiExplosion
@@ -146,14 +171,23 @@ export default function Home() {
 								</div>
 							</div>
 						</div>
-						<div className="w-full h-full bg-neutral rounded-3xl p-8 lg:col-span-2 grid place-items-center">
+						<div className="w-full h-full bg-neutral rounded-3xl p-4 lg:col-span-2 grid place-items-center">
 							<Pie
+								options={{
+									plugins: {
+										title: {
+											text: 'Reviews by sentiment',
+											display: true,
+											font: { size: 25 },
+										},
+									},
+								}}
 								data={{
 									labels: getSentiments(reviewData),
 									datasets: [
 										{
 											borderRadius: 15,
-											label: 'Popularity of colours',
+
 											data: getReviewData(reviewData, startDate, endDate),
 											// you can set indiviual colors for each bar
 											backgroundColor: COLORS,
@@ -164,8 +198,20 @@ export default function Home() {
 							></Pie>
 						</div>
 
-						<div className=" !w-full  bg-neutral rounded-3xl p-8 grid place-items-center lg:col-span-3 h-full">
+						<div className=" !w-full  bg-neutral rounded-3xl grid place-items-center lg:col-span-3 h-full px-4">
 							<Line
+								options={{
+									plugins: {
+										title: {
+											text: 'Revenue by month',
+											display: true,
+											font: { size: 25 },
+										},
+										legend: {
+											display: false,
+										},
+									},
+								}}
 								data={{
 									labels: MONTHS,
 
@@ -174,7 +220,6 @@ export default function Home() {
 											fill: true,
 											pointBackgroundColor: 'FFFFFF',
 
-											label: 'Popularity of stores',
 											data: getMonthlySales(orderData, startDate, endDate),
 											// you can set indiviual colors for each bar
 											backgroundColor: '#92e0b0' + 'B0',
@@ -186,15 +231,27 @@ export default function Home() {
 						</div>
 
 						<div className="w-full h-full lg:col-span-3">
-							<div className=" w-full h-full bg-neutral rounded-3xl p-8">
+							<div className=" w-full h-full bg-neutral rounded-3xl p-4 grid place-items-center">
 								<Bar
+									options={{
+										plugins: {
+											title: {
+												text: 'Orders by store',
+												display: true,
+												font: { size: 25 },
+											},
+											legend: {
+												display: false,
+											},
+										},
+									}}
 									data={{
 										labels: getStores(orderData),
 
 										datasets: [
 											{
 												borderRadius: 15,
-												label: 'Popularity of stores',
+
 												data: getStoreData(
 													orderData,
 													pizzaTypesFilter,
@@ -202,8 +259,8 @@ export default function Home() {
 													startDate,
 													endDate
 												),
-												// you can set indiviual colors for each bar
-												backgroundColor: COLORS,
+
+												backgroundColor: STORE_COLORS,
 												borderWidth: 1,
 											},
 										],
@@ -233,12 +290,101 @@ export default function Home() {
 							</div>
 						</div>
 
-						<div className="lg:col-span-2 bg-neutral w-full h-full rounded-3xl"></div>
+						<div className="lg:col-span-2 bg-neutral w-full h-full rounded-3xl col-span-1 grid place-items-center p-4">
+							<PolarArea
+								//add title
+
+								options={{
+									plugins: {
+										title: {
+											text: 'Revenue by store',
+											display: true,
+											font: { size: 25 },
+										},
+									},
+								}}
+								data={{
+									labels: getStores(orderData),
+									datasets: [
+										{
+											data: getStoreSales(orderData, startDate, endDate),
+											backgroundColor: STORE_COLORS,
+											borderWidth: 1,
+										},
+									],
+								}}
+							></PolarArea>
+						</div>
+
+						<div className="lg:col-span-5 bg-neutral w-full  rounded-3xl col-span-1 p-8">
+							<h2 className="text-2xl font-bold text-gray-700">
+								Most recent reviews
+							</h2>
+
+							<div className="grid lg:grid-cols-4 grid-cols-2 gap-2 p-4">
+								{recentReviews.map((review) => {
+									return (
+										<div className="bg-base-100 rounded-lg p-4 flex flex-col gap-2">
+											<h2 className="text-2xl font-bold text-gray-600">
+												Store: {review.store}
+											</h2>
+
+											<div
+												className={`badge p-3 ${
+													emotionToColor[
+														review.sentiment as keyof typeof emotionToColor
+													]
+												}`}
+											>
+												{review.sentiment}
+											</div>
+
+											<p className="text-gray-500"> {review.message} </p>
+										</div>
+									);
+								})}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</>
 	);
+}
+
+const emotionToColor = {
+	delighted: 'bg-green-300/50',
+	happy: 'bg-green-500/50',
+	sad: 'bg-blue-400/50',
+	angry: 'bg-red-400/50',
+};
+
+function getRecentReviews(d: Review[]): Review[] {
+	return d
+		.sort((a, b) => {
+			return new Date(b.date).getTime() - new Date(a.date).getTime();
+		})
+		.slice(0, 8);
+}
+
+function getStoreSales(d: Order[], startDate: Date, endDate: Date): number[] {
+	const data = filterByDate(d, startDate, endDate) as typeof d;
+
+	const storeSales = new Map<string, number>();
+
+	getStores(data).forEach((store) => {
+		storeSales.set(store, 0);
+	});
+
+	data.forEach((order) => {
+		const sales = order.items.reduce((acc, item) => {
+			return acc + getPrice(item);
+		}, 0);
+
+		storeSales.set(order.store, storeSales.get(order.store)! + sales);
+	});
+
+	return getStores(data).map((store) => storeSales.get(store)!);
 }
 
 type Item = {
