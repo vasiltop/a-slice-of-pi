@@ -4,10 +4,10 @@ A Slice of Pi is a web application created for the OutStem Coding Challenge, whe
 
 ## Technology Used
 
-- [React.js](https://react.dev/) for the components and reactive design.
+- [React.js](https://react.dev/) for components and reactive design.
 - [Tailwind CSS](https://tailwindcss.com/) for styling.
-- [daisyUI](https://daisyui.com/) for the styled components.
-- [Chart.js](https://www.chartjs.org/) for the charts.
+- [daisyUI](https://daisyui.com/) for styled components.
+- [Chart.js](https://www.chartjs.org/) for charts.
 
 ## Installation
 
