@@ -16,7 +16,12 @@ export default function Checkbox({ label, value, onChange }: CheckboxProps) {
 
 	return (
 		<label>
-			<input type="checkbox" checked={checked} onChange={onChange} />
+			<input
+				type="checkbox"
+				checked={checked}
+				onChange={onChange}
+				className="checkbox checkbox-md"
+			/>
 			{label}
 		</label>
 	);

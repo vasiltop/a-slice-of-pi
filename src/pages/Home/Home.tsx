@@ -7,6 +7,7 @@ import Checkbox from '../../components/Checkbox.tsx';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Navbar from '../../components/Navbar.tsx';
 
 export const MONTHS = [
 	'January',
@@ -75,114 +76,163 @@ export default function Home() {
 		});
 	}
 
-	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState<Date>(new Date());
+	const [startDate, setStartDate] = useState(new Date(Date.UTC(2023, 0, 2)));
+	const [endDate, setEndDate] = useState<Date>(
+		new Date(Date.UTC(2023, 11, 32))
+	);
+
 	const onChange = (dates: [Date, Date]) => {
 		const [start, end] = dates;
 		setStartDate(start);
 		setEndDate(end);
 	};
 
+	function getStartDate() {
+		if (endDate == null || startDate == null) {
+			return 'Selecting...';
+		}
+		return startDate.toDateString();
+	}
+
+	function getEndDate() {
+		if (endDate == null || startDate == null) {
+			return '';
+		}
+		return ' - ' + endDate.toDateString();
+	}
+
 	return (
 		<>
-			<h2> Date </h2>
-			<DatePicker
-				selected={startDate}
-				onChange={onChange}
-				startDate={startDate}
-				endDate={endDate}
-				selectsRange
-				inline
-			/>
+			<Navbar />
+			<div className=" ">
+				<div className="flex items-center gap-4 w-full justify-center flex-wrap">
+					<div className=" flex bg-accent items-center rounded-lg p-4 gap-4 h-full ">
+						<p className="text-white font-bold text-lg">Date Range:</p>
+						<details className="dropdown ">
+							<summary className=" m-1 btn no-animation border-gray-400 rounded-sm h-6 min-h-0 bg-white">
+								{getStartDate() + getEndDate()}
+							</summary>
+							<ul className="dropdown-content menu">
+								<DatePicker
+									selected={startDate}
+									onChange={onChange}
+									startDate={startDate}
+									endDate={endDate}
+									selectsRange
+									inline
+								/>
+							</ul>
+						</details>
+					</div>
 
-			<Pie
-				data={{
-					labels: getSentiments(reviewData),
-					datasets: [
-						{
-							label: 'Popularity of colours',
-							data: getReviewData(reviewData, startDate, endDate),
-							// you can set indiviual colors for each bar
-							backgroundColor: [
-								'rgba(200, 200, 200, 1)',
-								'rgba(100, 100, 100, 11)',
-								'rgba(50, 50, 50, 1)',
-								'rgba(10, 10, 10, 1)',
-							],
-							borderWidth: 1,
-						},
-					],
-				}}
-			></Pie>
-			<Bar
-				data={{
-					labels: getStores(orderData),
+					<div className="bg-accent h-full p-4 rounded-lg">
+						<p className="text-white text-xl text-bold">
+							Total sales: ${totalSales}
+						</p>
+					</div>
+				</div>
 
-					datasets: [
-						{
-							label: 'Popularity of stores',
-							data: getStoreData(
-								orderData,
-								pizzaTypesFilter,
-								pizzaSizesFilter,
-								startDate,
-								endDate
-							),
-							// you can set indiviual colors for each bar
-							backgroundColor: [
-								'rgba(200, 200, 200, 1)',
-								'rgba(100, 100, 100, 11)',
-								'rgba(50, 50, 50, 1)',
-								'rgba(10, 10, 10, 1)',
-							],
-							borderWidth: 1,
-						},
-					],
-				}}
-			></Bar>
-			<h2> Include: </h2>
-			<h3> Pizza Types </h3>
-			{PIZZA_TYPES.map((type) => (
-				<Checkbox
-					label={type}
-					value={pizzaTypesFilter[type]}
-					onChange={() => {
-						updatePizzaTypesFilter(type);
-					}}
-				></Checkbox>
-			))}
-			<h3> Pizza Sizes </h3>
-			{PIZZA_SIZES.map((size) => (
-				<Checkbox
-					label={size}
-					value={pizzaSizesFilter[size]}
-					onChange={() => {
-						updatePizzaSizesFilter(size);
-					}}
-				></Checkbox>
-			))}
-			<h2> Total Sales</h2>
-			<p>${totalSales}</p>
-			<Line
-				data={{
-					labels: MONTHS,
+				<div className="grid grid-cols-3 place-items-center m-4 gap-4">
+					<div className="w-full h-full bg-accent rounded-xl p-8">
+						<Pie
+							data={{
+								labels: getSentiments(reviewData),
+								datasets: [
+									{
+										label: 'Popularity of colours',
+										data: getReviewData(reviewData, startDate, endDate),
+										// you can set indiviual colors for each bar
+										backgroundColor: [
+											'rgba(200, 200, 200, 1)',
+											'rgba(100, 100, 100, 11)',
+											'rgba(50, 50, 50, 1)',
+											'rgba(10, 10, 10, 1)',
+										],
+										borderWidth: 1,
+									},
+								],
+							}}
+						></Pie>
+					</div>
+					<div className="w-full h-full">
+						<div className=" w-full h-full bg-accent rounded-xl p-8">
+							<Bar
+								data={{
+									labels: getStores(orderData),
 
-					datasets: [
-						{
-							label: 'Popularity of stores',
-							data: getMonthlySales(orderData, startDate, endDate),
-							// you can set indiviual colors for each bar
-							backgroundColor: [
-								'rgba(200, 200, 200, 1)',
-								'rgba(100, 100, 100, 11)',
-								'rgba(50, 50, 50, 1)',
-								'rgba(10, 10, 10, 1)',
-							],
-							borderWidth: 1,
-						},
-					],
-				}}
-			></Line>
+									datasets: [
+										{
+											label: 'Popularity of stores',
+											data: getStoreData(
+												orderData,
+												pizzaTypesFilter,
+												pizzaSizesFilter,
+												startDate,
+												endDate
+											),
+											// you can set indiviual colors for each bar
+											backgroundColor: [
+												'rgba(200, 200, 200, 1)',
+												'rgba(100, 100, 100, 11)',
+												'rgba(50, 50, 50, 1)',
+												'rgba(10, 10, 10, 1)',
+											],
+											borderWidth: 1,
+										},
+									],
+								}}
+							></Bar>
+							<div className="grid-cols-2 place-items-center">
+								<div className="flex flex-col">
+									{PIZZA_TYPES.map((type) => (
+										<Checkbox
+											label={type}
+											value={pizzaTypesFilter[type]}
+											onChange={() => {
+												updatePizzaTypesFilter(type);
+											}}
+										></Checkbox>
+									))}
+								</div>
+								<div className="flex flex-col">
+									{PIZZA_SIZES.map((size) => (
+										<Checkbox
+											label={size}
+											value={pizzaSizesFilter[size]}
+											onChange={() => {
+												updatePizzaSizesFilter(size);
+											}}
+										></Checkbox>
+									))}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div className=" w-full h-full bg-accent rounded-xl p-8">
+						<Line
+							data={{
+								labels: MONTHS,
+
+								datasets: [
+									{
+										label: 'Popularity of stores',
+										data: getMonthlySales(orderData, startDate, endDate),
+										// you can set indiviual colors for each bar
+										backgroundColor: [
+											'rgba(200, 200, 200, 1)',
+											'rgba(100, 100, 100, 11)',
+											'rgba(50, 50, 50, 1)',
+											'rgba(10, 10, 10, 1)',
+										],
+										borderWidth: 1,
+									},
+								],
+							}}
+						></Line>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 }
