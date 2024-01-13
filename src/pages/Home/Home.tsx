@@ -201,6 +201,15 @@ export default function Home() {
 						<div className=" !w-full  bg-neutral rounded-3xl grid place-items-center lg:col-span-3 h-full px-4">
 							<Line
 								options={{
+									animations: {
+										tension: {
+											duration: 3000,
+											easing: 'linear',
+											from: 0.4,
+											to: 0,
+											loop: true,
+										},
+									},
 									plugins: {
 										title: {
 											text: 'Revenue by month',
@@ -292,8 +301,6 @@ export default function Home() {
 
 						<div className="lg:col-span-2 bg-neutral w-full h-full rounded-3xl col-span-1 grid place-items-center p-4">
 							<PolarArea
-								//add title
-
 								options={{
 									plugins: {
 										title: {
@@ -317,7 +324,7 @@ export default function Home() {
 						</div>
 
 						<div className="lg:col-span-5 bg-neutral w-full  rounded-3xl col-span-1 p-8">
-							<h2 className="text-2xl font-bold text-gray-700">
+							<h2 className="text-2xl font-bold text-gray-600">
 								Most recent reviews
 							</h2>
 
