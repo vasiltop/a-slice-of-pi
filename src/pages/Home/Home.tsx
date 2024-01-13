@@ -11,7 +11,8 @@ import Navbar from '../../components/Navbar.tsx';
 import CountUp from 'react-countup';
 import ConfettiExplosion from 'react-confetti-explosion';
 
-export const COLORS = ['#ffcc00', '#4caf50', '#2196f3', '#ff5722'];
+//make the last one orange ORANGE
+export const COLORS = ['#ffcc00', '#4caf50', '#2196f3', '#ff5722', '#ffab36'];
 
 export const MONTHS = [
 	'January',
@@ -162,6 +163,28 @@ export default function Home() {
 								}}
 							></Pie>
 						</div>
+
+						<div className=" !w-full  bg-neutral rounded-3xl p-8 grid place-items-center lg:col-span-3 h-full">
+							<Line
+								data={{
+									labels: MONTHS,
+
+									datasets: [
+										{
+											fill: true,
+											pointBackgroundColor: 'FFFFFF',
+
+											label: 'Popularity of stores',
+											data: getMonthlySales(orderData, startDate, endDate),
+											// you can set indiviual colors for each bar
+											backgroundColor: '#92e0b0' + 'B0',
+											borderWidth: 1,
+										},
+									],
+								}}
+							></Line>
+						</div>
+
 						<div className="w-full h-full lg:col-span-3">
 							<div className=" w-full h-full bg-neutral rounded-3xl p-8">
 								<Bar
@@ -210,25 +233,7 @@ export default function Home() {
 							</div>
 						</div>
 
-						<div className=" !w-full  bg-neutral rounded-3xl p-8 flex place-items-center lg:col-span-3 max-h-96 h-full">
-							<Line
-								data={{
-									labels: MONTHS,
-
-									datasets: [
-										{
-											fill: true,
-
-											label: 'Popularity of stores',
-											data: getMonthlySales(orderData, startDate, endDate),
-											// you can set indiviual colors for each bar
-											backgroundColor: COLORS[0] + 'B0',
-											borderWidth: 1,
-										},
-									],
-								}}
-							></Line>
-						</div>
+						<div className="lg:col-span-2 bg-neutral w-full h-full rounded-3xl"></div>
 					</div>
 				</div>
 			</div>
