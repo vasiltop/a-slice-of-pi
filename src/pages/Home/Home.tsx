@@ -153,6 +153,14 @@ export default function Home() {
 											loop: true,
 										},
 									},
+									scales: {
+										y: {
+											title: {
+												display: true,
+												text: 'Revenue ($)',
+											},
+										},
+									},
 									plugins: {
 										title: {
 											text: 'Revenue by month',
@@ -171,7 +179,6 @@ export default function Home() {
 										{
 											fill: true,
 											pointBackgroundColor: 'FFFFFF',
-
 											data: getMonthlySales(orderData, startDate, endDate),
 											// you can set indiviual colors for each bar
 											backgroundColor: '#92e0b0' + 'B0',
@@ -186,6 +193,14 @@ export default function Home() {
 							<div className=" w-full h-full bg-neutral rounded-3xl p-4 grid place-items-center">
 								<Bar
 									options={{
+										scales: {
+											y: {
+												title: {
+													display: true,
+													text: 'Orders (#)',
+												},
+											},
+										},
 										plugins: {
 											title: {
 												text: 'Orders by store',

@@ -6,7 +6,7 @@ export function getStoreSales(
 	startDate: Date,
 	endDate: Date
 ): number[] {
-	const data = filterByDate(d, startDate, endDate) as typeof d;
+	const data = filterByDate(d, startDate, endDate);
 
 	const storeSales = new Map<string, number>();
 
@@ -25,11 +25,11 @@ export function getStoreSales(
 	return getStores(data).map((store) => storeSales.get(store)!);
 }
 
-function filterByDate(
-	data: Order[] | Review[],
+function filterByDate<T extends { date: string }>(
+	data: T[],
 	startDate: Date,
 	endDate: Date
-): (Order | Review)[] {
+): T[] {
 	return data.filter((item) => {
 		const date = new Date(item.date);
 		return date >= startDate && date <= endDate;
@@ -41,7 +41,7 @@ export function getMonthlySales(
 	startDate: Date,
 	endDate: Date
 ): number[] {
-	const data = filterByDate(d, startDate, endDate) as typeof d;
+	const data = filterByDate(d, startDate, endDate);
 	const monthlySales = new Map<string, number>();
 
 	MONTHS.forEach((month) => {
@@ -50,7 +50,7 @@ export function getMonthlySales(
 
 	data.forEach((order) => {
 		const date = new Date(order.date);
-		const month = MONTHS[date.getMonth()];
+		const month = MONTHS[date.getUTCMonth()];
 
 		const sales = order.items.reduce((acc, item) => {
 			return acc + getPrice(item);
@@ -87,7 +87,7 @@ export function getReviewData(
 	startDate: Date,
 	endDate: Date
 ): number[] {
-	const data = filterByDate(d, startDate, endDate) as typeof d;
+	const data = filterByDate(d, startDate, endDate);
 
 	let keys = getSentiments(data);
 	let labelMap = new Map<string, number>();
@@ -115,7 +115,7 @@ export function getStoreData(
 	startDate: Date,
 	endDate: Date
 ): number[] {
-	const data = filterByDate(d, startDate, endDate) as typeof d;
+	const data = filterByDate(d, startDate, endDate);
 	const stores = getStores(data);
 	const labelMap = new Map<string, number>();
 

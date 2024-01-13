@@ -16,7 +16,7 @@ export default function RecentReviews() {
 		<>
 			<h2 className="text-2xl font-bold text-gray-600">Most recent reviews</h2>
 
-			<div className="grid lg:grid-cols-4 grid-cols-2 gap-2 p-4">
+			<div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2 p-4 grid-cols-1">
 				{recentReviews.map((review) => {
 					return (
 						<div className="bg-base-100 rounded-lg p-4 flex flex-col gap-2">
