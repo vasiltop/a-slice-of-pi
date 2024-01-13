@@ -15,14 +15,14 @@ export default function Checkbox({ label, value, onChange }: CheckboxProps) {
 	}, [value]);
 
 	return (
-		<label>
+		<label className="flex items-center gap-2 text-black">
 			<input
-				type="checkbox"
+				type="button"
 				checked={checked}
-				onChange={onChange}
-				className="checkbox checkbox-md"
+				onClick={onChange}
+				className={`btn ${checked ? 'bg-primary' : 'bg-base-100'} btn-ghost`}
+				value={label}
 			/>
-			{label}
 		</label>
 	);
 }

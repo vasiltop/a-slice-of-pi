@@ -8,6 +8,10 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Navbar from '../../components/Navbar.tsx';
+import CountUp from 'react-countup';
+import ConfettiExplosion from 'react-confetti-explosion';
+
+export const COLORS = ['#ffcc00', '#4caf50', '#2196f3', '#ff5722'];
 
 export const MONTHS = [
 	'January',
@@ -104,86 +108,85 @@ export default function Home() {
 	return (
 		<>
 			<Navbar />
-			<div className=" ">
-				<div className="flex items-center gap-4 w-full justify-center flex-wrap">
-					<div className=" flex bg-accent items-center rounded-lg p-4 gap-4 h-full ">
-						<p className="text-white font-bold text-lg">Date Range:</p>
-						<details className="dropdown ">
-							<summary className=" m-1 btn no-animation border-gray-400 rounded-sm h-6 min-h-0 bg-white">
-								{getStartDate() + getEndDate()}
-							</summary>
-							<ul className="dropdown-content menu">
-								<DatePicker
-									selected={startDate}
-									onChange={onChange}
-									startDate={startDate}
-									endDate={endDate}
-									selectsRange
-									inline
-								/>
-							</ul>
-						</details>
-					</div>
+			<div className="grid place-items-center">
+				<div className=" max-w-7xl">
+					<div className="grid grid-cols-1 place-items-center m-4 gap-4 lg:grid-cols-5">
+						<div className="flex items-center gap-4 justify-center flex-wrap rounded-lg  lg:col-span-5">
+							<div className=" flex bg-neutral items-center rounded-lg p-4 gap-4 h-16 ">
+								<details className="dropdown ">
+									<summary className=" m-1 btn  rounded-lg h-8 min-h-0 bg-white btn-ghost">
+										{getStartDate() + getEndDate()}
+									</summary>
+									<ul className="dropdown-content menu">
+										<DatePicker
+											selected={startDate}
+											onChange={onChange}
+											startDate={startDate}
+											endDate={endDate}
+											selectsRange
+											inline
+										/>
+									</ul>
+								</details>
+							</div>
 
-					<div className="bg-accent h-full p-4 rounded-lg">
-						<p className="text-white text-xl text-bold">
-							Total sales: ${totalSales}
-						</p>
-					</div>
-				</div>
-
-				<div className="grid grid-cols-3 place-items-center m-4 gap-4">
-					<div className="w-full h-full bg-accent rounded-xl p-8">
-						<Pie
-							data={{
-								labels: getSentiments(reviewData),
-								datasets: [
-									{
-										label: 'Popularity of colours',
-										data: getReviewData(reviewData, startDate, endDate),
-										// you can set indiviual colors for each bar
-										backgroundColor: [
-											'rgba(200, 200, 200, 1)',
-											'rgba(100, 100, 100, 11)',
-											'rgba(50, 50, 50, 1)',
-											'rgba(10, 10, 10, 1)',
-										],
-										borderWidth: 1,
-									},
-								],
-							}}
-						></Pie>
-					</div>
-					<div className="w-full h-full">
-						<div className=" w-full h-full bg-accent rounded-xl p-8">
-							<Bar
+							<div className="bg-neutral h-16 p-4 rounded-lg flex flow-row relative place-items-center">
+								<p className=" text-gray-700 text-xl  self-baseline translate-y-[.125rem]">
+									Total sales: $
+									<CountUp end={totalSales} />
+								</p>
+								<div className="flex w-full h-full place-items-center absolute">
+									<ConfettiExplosion
+										force={0.4}
+										duration={2200}
+										particleCount={20}
+										width={400}
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="w-full h-full bg-neutral rounded-3xl p-8 lg:col-span-2 grid place-items-center">
+							<Pie
 								data={{
-									labels: getStores(orderData),
-
+									labels: getSentiments(reviewData),
 									datasets: [
 										{
-											label: 'Popularity of stores',
-											data: getStoreData(
-												orderData,
-												pizzaTypesFilter,
-												pizzaSizesFilter,
-												startDate,
-												endDate
-											),
+											borderRadius: 15,
+											label: 'Popularity of colours',
+											data: getReviewData(reviewData, startDate, endDate),
 											// you can set indiviual colors for each bar
-											backgroundColor: [
-												'rgba(200, 200, 200, 1)',
-												'rgba(100, 100, 100, 11)',
-												'rgba(50, 50, 50, 1)',
-												'rgba(10, 10, 10, 1)',
-											],
+											backgroundColor: COLORS,
 											borderWidth: 1,
 										},
 									],
 								}}
-							></Bar>
-							<div className="grid-cols-2 place-items-center">
-								<div className="flex flex-col">
+							></Pie>
+						</div>
+						<div className="w-full h-full lg:col-span-3">
+							<div className=" w-full h-full bg-neutral rounded-3xl p-8">
+								<Bar
+									data={{
+										labels: getStores(orderData),
+
+										datasets: [
+											{
+												borderRadius: 15,
+												label: 'Popularity of stores',
+												data: getStoreData(
+													orderData,
+													pizzaTypesFilter,
+													pizzaSizesFilter,
+													startDate,
+													endDate
+												),
+												// you can set indiviual colors for each bar
+												backgroundColor: COLORS,
+												borderWidth: 1,
+											},
+										],
+									}}
+								></Bar>
+								<div className="flex justify-center m-4 gap-2 flex-wrap">
 									{PIZZA_TYPES.map((type) => (
 										<Checkbox
 											label={type}
@@ -193,8 +196,7 @@ export default function Home() {
 											}}
 										></Checkbox>
 									))}
-								</div>
-								<div className="flex flex-col">
+
 									{PIZZA_SIZES.map((size) => (
 										<Checkbox
 											label={size}
@@ -207,29 +209,26 @@ export default function Home() {
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div className=" w-full h-full bg-accent rounded-xl p-8">
-						<Line
-							data={{
-								labels: MONTHS,
+						<div className=" !w-full  bg-neutral rounded-3xl p-8 flex place-items-center lg:col-span-3 max-h-96 h-full">
+							<Line
+								data={{
+									labels: MONTHS,
 
-								datasets: [
-									{
-										label: 'Popularity of stores',
-										data: getMonthlySales(orderData, startDate, endDate),
-										// you can set indiviual colors for each bar
-										backgroundColor: [
-											'rgba(200, 200, 200, 1)',
-											'rgba(100, 100, 100, 11)',
-											'rgba(50, 50, 50, 1)',
-											'rgba(10, 10, 10, 1)',
-										],
-										borderWidth: 1,
-									},
-								],
-							}}
-						></Line>
+									datasets: [
+										{
+											fill: true,
+
+											label: 'Popularity of stores',
+											data: getMonthlySales(orderData, startDate, endDate),
+											// you can set indiviual colors for each bar
+											backgroundColor: COLORS[0] + 'B0',
+											borderWidth: 1,
+										},
+									],
+								}}
+							></Line>
+						</div>
 					</div>
 				</div>
 			</div>

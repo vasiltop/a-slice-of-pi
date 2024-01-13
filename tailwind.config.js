@@ -6,6 +6,16 @@ export default {
 	},
 	plugins: [require('daisyui')],
 	daisyui: {
-		themes: ['lofi'],
+		themes: [
+			{
+				good: {
+					primary: '#b8d4cc',
+					secondary: '#48ab82',
+					accent: '#45aeba',
+					neutral: '#ffffff',
+					'base-100': '#f2f2f2',
+				},
+			},
+		],
 	},
 };
