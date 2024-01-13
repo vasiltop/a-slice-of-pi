@@ -14,7 +14,7 @@ export default function Navbar() {
 					</svg>
 					<p className=" text-2xl font-bold text-black flex-1">A Slice of Pi</p>
 
-					<a href="https://github.com/vasiltop/interview" target="_blank">
+					<a href="https://github.com/vasiltop/a-slice-of-pi" target="_blank">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
