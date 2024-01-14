@@ -7,7 +7,6 @@ export default function Navbar() {
 						width="24"
 						height="24"
 						xmlns="http://www.w3.org/2000/svg"
-            title="Pizza"
 						fillRule="evenodd"
             fill="currentColor"
 						clipRule="evenodd"
@@ -21,7 +20,6 @@ export default function Navbar() {
 					<a href="https://github.com/vasiltop/a-slice-of-pi" aria-label="Github" target="_blank">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-              title="Github"
               fill="currentColor"
 							width="24"
 							height="24"

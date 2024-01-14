@@ -259,7 +259,7 @@ export default function Home() {
                     r: {
                       ticks: {
                         display: false,
-                        backgroundColor: 'transparent',
+                        backdropColor: 'transparent',
                         z: 20
                         }
                     },
