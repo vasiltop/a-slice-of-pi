@@ -29,7 +29,7 @@ export default function RecentReviews() {
 
 	return (
 		<>
-			<div className="flex gap-4 items-center">
+			<div className="flex gap-4 items-center flex-wrap">
 				<h2 className="text-2xl font-bold text-gray-600">
 					Most recent reviews
 				</h2>
