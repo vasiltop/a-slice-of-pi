@@ -30,7 +30,7 @@ export default function RecentReviews() {
 	return (
 		<>
 			<div className="flex gap-4 items-center flex-wrap">
-				<h2 className="text-2xl font-bold text-neutral-content">
+				<h2 className="text-2xl font-bold text-base-content">
 					Most recent reviews
 				</h2>
 				<input
@@ -71,7 +71,7 @@ export default function RecentReviews() {
 							</h2>
 
 							<div
-								className={`badge text-primary-content p-3 ${
+								className={`badge text-base-content p-3 ${
 									emotionToColor[
 										review.sentiment as keyof typeof emotionToColor
 									]
