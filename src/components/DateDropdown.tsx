@@ -27,7 +27,7 @@ export default function DateDropdown({
 	return (
 		<>
 			<details className="dropdown">
-				<summary className=" m-1 btn  rounded-lg h-8 min-h-0 bg-white btn-ghost">
+				<summary className=" m-1 btn  rounded-lg h-8 min-h-0 bg-neutral btn-ghost">
 					{getStartDate() + getEndDate()}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
