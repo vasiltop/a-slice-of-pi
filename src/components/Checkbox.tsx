@@ -18,7 +18,7 @@ export default function Checkbox({ label, value, onChange }: CheckboxProps) {
 			<input
 				type="button"
 				onClick={onChange}
-				className={`btn ${checked ? 'bg-primary text-primary-content' : 'bg-base-100 text-base-content'} btn-ghost`}
+				className={`btn ${checked ? 'bg-primary text-primary-content' : 'bg-base-100 text-base-conten'} btn-ghost`}
 				value={label}
 			/>
 		</label>
