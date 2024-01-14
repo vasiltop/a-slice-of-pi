@@ -10,25 +10,20 @@ export default function DateDropdown({
 	endDate: Date;
 	onChange: (date: [Date, Date]) => void;
 }) {
-	function getStartDate() {
-		if (endDate == null || startDate == null) {
-			return 'Selecting...';
-		}
-		return startDate.toDateString();
-	}
 
-	function getEndDate() {
-		if (endDate == null || startDate == null) {
-			return '';
-		}
-		return ' - ' + endDate.toDateString();
-	}
+  function getDateString() {
+    if (endDate == null || startDate == null) {
+      return 'Selecting...';
+    }
+
+    return startDate.toDateString() + ' - ' + endDate.toDateString();
+  }
 
 	return (
 		<>
 			<details className="dropdown">
 				<summary className=" m-1 btn text-neutral-content rounded-lg h-8 min-h-0 bg-neutral btn-ghost">
-					{getStartDate() + getEndDate()}
+					{getDateString()}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"

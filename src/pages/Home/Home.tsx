@@ -172,7 +172,6 @@ export default function Home() {
 											pointBackgroundColor: '#92e0b0B0',
 
 											data: getMonthlySales(orderData, startDate, endDate),
-											// you can set indiviual colors for each bar
 											backgroundColor: '#92e0b0B0',
 											borderWidth: 1,
 										},

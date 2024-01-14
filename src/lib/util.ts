@@ -62,7 +62,7 @@ export function getMonthlySales(
 	return MONTHS.map((month) => monthlySales.get(month)!);
 }
 
-export function getStores(data: Order[] | Review[]): string[] {
+export function getStores<T extends { store: string }>(data: T[]): string[] {
 	let keys = new Set<string>();
 
 	data.forEach((item) => {
