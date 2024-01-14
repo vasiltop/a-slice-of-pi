@@ -96,7 +96,7 @@ export default function Home() {
 							</div>
 
 							<div className="bg-neutral h-16 p-4 rounded-lg flex flow-row relative place-items-center">
-								<p className=" text-gray-700 text-xl self-baseline translate-y-[.125rem]">
+								<p className=" text-neutral-content text-xl self-baseline translate-y-[.125rem]">
 									Total sales:
 									<span className=" text-green-400">
 										{' '}
@@ -169,10 +169,11 @@ export default function Home() {
 									datasets: [
 										{
 											fill: true,
-											pointBackgroundColor: 'FFFFFF',
+											pointBackgroundColor: '#92e0b0B0',
+
 											data: getMonthlySales(orderData, startDate, endDate),
 											// you can set indiviual colors for each bar
-											backgroundColor: '#92e0b0' + 'B0',
+											backgroundColor: '#92e0b0B0',
 											borderWidth: 1,
 										},
 									],
@@ -254,6 +255,15 @@ export default function Home() {
 						<div className="lg:col-span-2 bg-neutral w-full h-full rounded-3xl col-span-1 grid place-items-center p-4">
 							<PolarArea
 								options={{
+                  scales: {
+                    r: {
+                      ticks: {
+                        display: false,
+                        backgroundColor: 'transparent',
+                        z: 20
+                        }
+                    },
+                  },
 									plugins: {
 										title: {
 											text: 'Revenue by store',

@@ -16,6 +16,7 @@ export default {
 					'base-100': '#f2f2f2',
 				},
 			},
+
 		],
 	},
 };
