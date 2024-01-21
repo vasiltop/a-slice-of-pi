@@ -87,7 +87,7 @@ export default function Home() {
 				<div className=" max-w-7xl">
 					<div className="grid grid-cols-1 place-items-center m-4 gap-4 lg:grid-cols-5">
 						<div className="flex items-center gap-4 justify-center flex-wrap rounded-lg  lg:col-span-5">
-							<div className=" flex bg-neutral items-center rounded-lg p-4 gap-4 h-16 ">
+							<div className=" flex bg-base-200 items-center rounded-lg p-4 gap-4 h-16 ">
 								<DateDropdown
 									startDate={startDate}
 									endDate={endDate}
@@ -95,8 +95,8 @@ export default function Home() {
 								/>
 							</div>
 
-							<div className="bg-neutral h-16 p-4 rounded-lg flex flow-row relative place-items-center">
-								<p className=" text-gray-700 text-xl self-baseline translate-y-[.125rem]">
+							<div className="bg-base-200 h-16 p-4 rounded-lg flex flow-row relative place-items-center">
+								<p className=" text-base-content text-xl self-baseline translate-y-[.125rem]">
 									Total sales:
 									<span className=" text-green-400">
 										{' '}
@@ -107,7 +107,7 @@ export default function Home() {
 							</div>
 						</div>
 
-						<div className="w-full h-full bg-neutral rounded-3xl p-4 lg:col-span-2 grid place-items-center">
+						<div className="w-full h-full bg-base-200 rounded-3xl p-4 lg:col-span-2 grid place-items-center">
 							<Pie
 								options={{
 									plugins: {
@@ -132,7 +132,7 @@ export default function Home() {
 							></Pie>
 						</div>
 
-						<div className=" !w-full  bg-neutral rounded-3xl grid place-items-center lg:col-span-3 h-full px-4">
+						<div className=" !w-full  bg-base-200 rounded-3xl grid place-items-center lg:col-span-3 h-full px-4">
 							<Line
 								options={{
 									animations: {
@@ -169,10 +169,10 @@ export default function Home() {
 									datasets: [
 										{
 											fill: true,
-											pointBackgroundColor: 'FFFFFF',
+											pointBackgroundColor: '#92e0b0B0',
+
 											data: getMonthlySales(orderData, startDate, endDate),
-											// you can set indiviual colors for each bar
-											backgroundColor: '#92e0b0' + 'B0',
+											backgroundColor: '#92e0b0B0',
 											borderWidth: 1,
 										},
 									],
@@ -181,7 +181,7 @@ export default function Home() {
 						</div>
 
 						<div className="w-full h-full lg:col-span-3">
-							<div className=" w-full h-full bg-neutral rounded-3xl p-4 grid place-items-center">
+							<div className=" w-full h-full bg-base-200 rounded-3xl p-4 grid place-items-center">
 								<Bar
 									options={{
 										scales: {
@@ -251,9 +251,18 @@ export default function Home() {
 							</div>
 						</div>
 
-						<div className="lg:col-span-2 bg-neutral w-full h-full rounded-3xl col-span-1 grid place-items-center p-4">
+						<div className="lg:col-span-2 bg-base-200 w-full h-full rounded-3xl col-span-1 grid place-items-center p-4">
 							<PolarArea
 								options={{
+                  scales: {
+                    r: {
+                      ticks: {
+                        display: false,
+                        backdropColor: 'transparent',
+                        z: 20
+                        }
+                    },
+                  },
 									plugins: {
 										title: {
 											text: 'Revenue by store',
@@ -275,7 +284,7 @@ export default function Home() {
 							></PolarArea>
 						</div>
 
-						<div className="lg:col-span-5 bg-neutral w-full  rounded-3xl col-span-1 p-8">
+						<div className="lg:col-span-5 bg-base-200 w-full  rounded-3xl col-span-1 p-8">
 							<RecentReviews />
 						</div>
 					</div>

@@ -30,7 +30,7 @@ export default function RecentReviews() {
 	return (
 		<>
 			<div className="flex gap-4 items-center flex-wrap">
-				<h2 className="text-2xl font-bold text-gray-600">
+				<h2 className="text-2xl font-bold text-base-content">
 					Most recent reviews
 				</h2>
 				<input
@@ -66,12 +66,12 @@ export default function RecentReviews() {
 							className="bg-base-100 rounded-lg p-4 flex flex-col gap-2"
 							key={review.review_id}
 						>
-							<h2 className="text-2xl font-bold text-gray-600">
+							<h2 className="text-2xl font-bold text-base-content">
 								Store: {review.store}
 							</h2>
 
 							<div
-								className={`badge p-3 ${
+								className={`badge text-base-content p-3 ${
 									emotionToColor[
 										review.sentiment as keyof typeof emotionToColor
 									]
@@ -80,7 +80,7 @@ export default function RecentReviews() {
 								{review.sentiment}
 							</div>
 
-							<p className="text-gray-700 flex-1"> {review.message} </p>
+							<p className="text-base-content flex-1"> {review.message} </p>
 
 							<p className=" text-sm text-gray-500">
 								{' '}
